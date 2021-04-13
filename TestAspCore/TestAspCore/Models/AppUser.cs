@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestAspCore.Authentication
 {
-    public class ApplicationUser : IdentityUser
+    public class AppUser : IdentityUser
     {
     }
 }

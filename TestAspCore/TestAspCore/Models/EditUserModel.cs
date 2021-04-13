@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestAspCore.Authentication
 {
-    public class EditUserModel : ApplicationUser
+    public class EditUserModel : AppUser
     {
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }

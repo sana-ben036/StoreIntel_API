@@ -20,11 +20,11 @@ namespace TestAspCore.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager , IConfiguration configuration)
+        public AuthenticationController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager , IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -43,7 +43,7 @@ namespace TestAspCore.Controllers
             if (userExist != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message= " User Already Exist" });
 
-            ApplicationUser user = new ApplicationUser
+            AppUser user = new AppUser
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -79,7 +79,7 @@ namespace TestAspCore.Controllers
             if (userExist != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = " User Already Exist" });
 
-            ApplicationUser user = new ApplicationUser
+            AppUser user = new AppUser
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),

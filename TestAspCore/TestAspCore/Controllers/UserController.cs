@@ -16,11 +16,11 @@ namespace TestAspCore.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
 
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public UserController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
 
         {
             this.userManager = userManager;
@@ -32,7 +32,7 @@ namespace TestAspCore.Controllers
         // GET: UserController/GetList
         [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
-        public IEnumerable<ApplicationUser> GetUsers()
+        public IEnumerable<AppUser> GetUsers()
         {
 
             var users = userManager.Users.Where(u => u.Email != User.Identity.Name);
@@ -42,7 +42,7 @@ namespace TestAspCore.Controllers
 
         // GET: UserController/GetUser/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetUser(Guid id)
+        public async Task<ActionResult<AppUser>> GetUser(Guid id)
         {
 
             var user = await userManager.FindByIdAsync(id.ToString());
@@ -53,13 +53,13 @@ namespace TestAspCore.Controllers
 
         // POST: UserController/Create
         [HttpPost]
-        public async Task<ActionResult<ApplicationUser>> Post([FromBody] RegisterModel model)
+        public async Task<ActionResult<AppUser>> Post([FromBody] RegisterModel model)
         {
             var userExist = await userManager.FindByNameAsync(model.UserName);
             if (userExist != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = " User Already Exist" });
 
-            ApplicationUser user = new ApplicationUser
+            AppUser user = new AppUser
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -84,7 +84,7 @@ namespace TestAspCore.Controllers
                 return BadRequest();
             }
 
-            ApplicationUser user = await userManager.FindByIdAsync(model.Id.ToString());
+            AppUser user = await userManager.FindByIdAsync(model.Id.ToString());
 
             if (user is not null)
             {

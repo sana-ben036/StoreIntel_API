@@ -9,7 +9,7 @@ using TestAspCore.Authentication;
 
 namespace TestAspCore.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20210408234900_init")]
     partial class init
     {

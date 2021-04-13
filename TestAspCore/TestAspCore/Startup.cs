@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestAspCore.Authentication;
+using TestAspCore.Models;
+using TestAspCore.Models.Repositories;
 
 namespace TestAspCore
 {
@@ -33,12 +35,18 @@ namespace TestAspCore
         {
 
             services.AddControllers();
+
+            // Repository
+            services.AddScoped<IStoreRepository<Product>, ProductRepository>();
+            services.AddScoped<IStoreRepository<Category>, CategoryRepository>();
+            services.AddScoped<IStoreRepository<Galery>, GaleryRepository>();
+
             //For Entity Framework
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
 
             //For Identity
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
             //Adding Authentication
@@ -82,6 +90,8 @@ namespace TestAspCore
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestAspCore v1"));
             }
+
+            app.UseFileServer();
 
             app.UseRouting();
 

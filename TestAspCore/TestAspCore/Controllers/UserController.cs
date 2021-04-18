@@ -46,6 +46,10 @@ namespace TestAspCore.Controllers
         {
 
             var user = await userManager.FindByIdAsync(id.ToString());
+            if (user is null)
+            {
+                return NotFound();
+            }
 
             return user;
         }

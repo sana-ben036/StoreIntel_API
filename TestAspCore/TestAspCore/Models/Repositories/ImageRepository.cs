@@ -7,17 +7,17 @@ using TestAspCore.Authentication;
 
 namespace TestAspCore.Models.Repositories
 {
-    public class GaleryRepository : IStoreRepository<Galery>
+    public class ImageRepository : IStoreRepository<Image>
     {
 
         private readonly AppDbContext _context;
-        public GaleryRepository(AppDbContext context)
+        public ImageRepository(AppDbContext context)
         {
             _context = context;
         }
 
 
-        public async Task<Galery> Create(Galery image)
+        public async Task<Image> Create(Image image)
         {
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
@@ -32,21 +32,21 @@ namespace TestAspCore.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Galery>> Get()
+        public async Task<IEnumerable<Image>> Get()
         {
             var images = await _context.Images.ToListAsync();
 
             return images;
         }
 
-        public async Task<Galery> Get(Guid id)
+        public async Task<Image> Get(Guid id)
         {
             var image = await _context.Images.FindAsync(id);
 
             return image;
         }
 
-        public async Task Update(Galery image)
+        public async Task Update(Image image)
         {
             _context.Entry(image).State = EntityState.Modified;
             await _context.SaveChangesAsync();

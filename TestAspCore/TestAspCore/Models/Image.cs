@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace TestAspCore.Models
 {
-    public class Galery
+    public class Image 
     {
         [Key]
         public Guid Id { get; set; }
+
         [Required(ErrorMessage = "The Image field is required !")]
-        public SerializableAttribute Image { get; set; }
-        public Guid ProductId { get; set; }
+        public string Path { get; set; }
+        public  Guid ProductId { get; set; }
         public virtual Product Product { get; set; }
+        
     }
 }

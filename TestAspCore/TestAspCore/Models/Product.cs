@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TestAspCore.Authentication;
 
 namespace TestAspCore.Models
 {
     public class Product
     {
-        [Key]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "The Title field is required !")]
         [MinLength(4)]
@@ -19,14 +19,16 @@ namespace TestAspCore.Models
         public string Description { get; set; }
         [Required(ErrorMessage = "The Stock Quantity field is required !")]
         [Display(Name = "Stock Quantity")]
-        public int QStock { get; set; }
+        public int InStock { get; set; }
 
+        
         [Required(ErrorMessage = "The Category field is required !")]
         [Display(Name = "Category")]
         public Guid CategoryId { get; set; }
         public virtual Category Category { get; set; }
-        public virtual IList<Galery> Images { get; set; }
-        public virtual IList<Order> Orders { get; set; }
+        public virtual IList<Image> Images { get; set; }
+        public virtual IList<OrderDetail> OrderLines { get; set; }
+        
 
     }
 }

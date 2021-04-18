@@ -39,7 +39,9 @@ namespace TestAspCore
             // Repository
             services.AddScoped<IStoreRepository<Product>, ProductRepository>();
             services.AddScoped<IStoreRepository<Category>, CategoryRepository>();
-            services.AddScoped<IStoreRepository<Galery>, GaleryRepository>();
+            services.AddScoped<IStoreRepository<Image>, ImageRepository>();
+            services.AddScoped<IStoreRepository<Order>, OrderRepository>();
+            //services.AddScoped<IStoreRepository<OrderProducts>, OrderProductsRepository>();
 
             //For Entity Framework
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));

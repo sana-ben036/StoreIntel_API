@@ -10,12 +10,12 @@ namespace TestAspCore.Models
     public class Category
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "The Title field is required !")]
         [MinLength(4)]
         public string Title { get; set; }
-        public SerializableAttribute Image { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
 
         public virtual IList<Product> Products { get; set; }
 }

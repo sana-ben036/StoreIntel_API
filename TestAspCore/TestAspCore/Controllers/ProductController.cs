@@ -11,7 +11,7 @@ using TestAspCore.Models.Repositories;
 
 namespace TestAspCore.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    //[Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -36,7 +36,11 @@ namespace TestAspCore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
-            return await _storeRepository.Get(id);
+            var product = await _storeRepository.Get(id);
+
+            if (product is null)
+                return NotFound();
+            return Ok(product);
         }
 
 
@@ -46,11 +50,11 @@ namespace TestAspCore.Controllers
         public async Task<ActionResult<Product>> Post([FromBody] Product product)
         {
             var newproduct = await _storeRepository.Create(product);
-            return CreatedAtAction(nameof(GetProduct), new { id = newproduct.Id }, newproduct);
+            return Ok(newproduct);
         }
 
-        // PuT: BProductController/Update
-        [HttpPut]
+        // PuT: ProductController/Update
+        [HttpPut("{id}")]
 
         public async Task<ActionResult> Put(Guid id, [FromBody] Product product)
         {
@@ -59,7 +63,8 @@ namespace TestAspCore.Controllers
                 return BadRequest();
             }
             await _storeRepository.Update(product);
-            return NoContent();
+            //return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            return Ok(product);
 
 
         }
@@ -75,7 +80,7 @@ namespace TestAspCore.Controllers
                 return NotFound();
             }
             await _storeRepository.Delete(product.Id);
-            return NoContent();
+            return Ok();
         }
 
 

@@ -12,11 +12,13 @@ namespace TestAspCore.Models
     {
         [Key]
         public Guid Id { get; set; }
+
         [Required(ErrorMessage = "The Image field is required !")]
         public DateTime Date { get; set; }
         public Status Status { get; set; }
+        public double Total { get; set; }
         public Guid UserId { get; set; }
         public virtual AppUser User { get; set; }
-        public virtual IList<Product> Products { get; set; }
+        public virtual IList<OrderDetail> OrderLines { get; set; }
     }
 }

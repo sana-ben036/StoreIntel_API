@@ -77,7 +77,7 @@ namespace TestAspCore.Controllers
                 return NotFound();
             }
             await _storeRepository.Delete(image.Id);
-            return NoContent();
+            return Ok();
         }
 
 

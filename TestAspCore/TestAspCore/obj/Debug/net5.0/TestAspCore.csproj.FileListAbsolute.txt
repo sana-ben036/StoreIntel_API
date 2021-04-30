@@ -266,3 +266,11 @@ C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore
 C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\obj\Debug\net5.0\ref\TestAspCore.dll
 C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\obj\Debug\net5.0\TestAspCore.pdb
 C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\obj\Debug\net5.0\TestAspCore.genruntimeconfig.cache
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\Google.Protobuf.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\K4os.Compression.LZ4.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\K4os.Compression.LZ4.Streams.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\K4os.Hash.xxHash.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\MySql.Data.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\Ubiety.Dns.Core.dll
+C:\Users\youcode\source\repos\sana-ben036\StoreIntel_API\TestAspCore\TestAspCore\bin\Debug\net5.0\Zstandard.Net.dll

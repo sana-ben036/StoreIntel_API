@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace TestAspCore.Models.Repositories
 
         public async Task<IEnumerable<Category>> Get()
         {
+
             var categories = await _context.Categories.ToListAsync();
 
             return categories;

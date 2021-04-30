@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TestAspCore.Models;
@@ -14,10 +16,12 @@ namespace TestAspCore.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly IStoreRepository<Category> _storeRepository;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public CategoryController(IStoreRepository<Category> storeRepository)
+        public CategoryController(IStoreRepository<Category> storeRepository, IWebHostEnvironment hostEnvironment) 
         {
             _storeRepository = storeRepository;
+            _hostEnvironment = hostEnvironment;
         }
 
 
@@ -26,7 +30,16 @@ namespace TestAspCore.Controllers
         [HttpGet]
         public async Task<IEnumerable<Category>> GetList()
         {
-            return await _storeRepository.Get();
+           var categories = await _storeRepository.Get();
+            return categories.Select(x => new Category()
+            {
+                Title = x.Title,
+                Description = x.Description,
+                ImageName = x.ImageName,
+                ImageSrc = String.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName)
+            });
+            
+            
         }
 
         // GET: CategoryController/Details/5
@@ -44,16 +57,17 @@ namespace TestAspCore.Controllers
 
         // POST: CategoryController/Create
         [HttpPost]
-        public async Task<ActionResult<Category>> Post([FromBody] Category category)
+        public async Task<ActionResult<Category>> Post([FromForm] Category category)
         {
-            var newcat = await _storeRepository.Create(category);
-            return Ok(newcat);
+            category.ImageName = await SaveImage(category.ImageFile);
+            await _storeRepository.Create(category);
+            return StatusCode(201);
         }
 
         // PuT: CategoryController/Update
         [HttpPut("{id}")]
 
-        public async Task<ActionResult> Put(Guid id, [FromBody] Category category)
+        public async Task<ActionResult> Put(Guid id, [FromForm] Category category)
         {
             if (id != category.Id)
             {
@@ -76,10 +90,21 @@ namespace TestAspCore.Controllers
                 return NotFound();
             }
             await _storeRepository.Delete(category.Id);
-            return NoContent();
+            return Ok();
         }
 
-
+        [NonAction]
+        public async Task<string> SaveImage (IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
 
     }
 }

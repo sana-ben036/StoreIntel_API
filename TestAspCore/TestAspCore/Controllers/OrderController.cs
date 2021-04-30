@@ -76,7 +76,7 @@ namespace TestAspCore.Controllers
                 return NotFound();
             }
             await _storeRepository.Delete(order.Id);
-            return NoContent();
+            return Ok();
         }
     }
 }

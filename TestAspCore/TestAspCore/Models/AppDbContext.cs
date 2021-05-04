@@ -32,6 +32,9 @@ namespace TestAspCore.Authentication
             //{
             //    foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             //}
+
+
+            
         }
 
 

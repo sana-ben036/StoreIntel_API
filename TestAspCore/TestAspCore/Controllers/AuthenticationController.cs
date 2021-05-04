@@ -21,12 +21,14 @@ namespace TestAspCore.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<AppUser> userManager;
+        private readonly SignInManager<AppUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager , IConfiguration configuration)
+        public AuthenticationController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager , IConfiguration configuration , SignInManager<AppUser> signInManager)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
             this.roleManager = roleManager;
             _configuration = configuration;
         }
@@ -113,6 +115,7 @@ namespace TestAspCore.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.UserName);
+
             if(user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -135,12 +138,46 @@ namespace TestAspCore.Controllers
                     );
 
                 return Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        ValidTo = token.ValidTo.ToString("yyyy-MM-ddThh:mm:ss")
-                });
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    ValidTo = token.ValidTo.ToString("yyyy-MM-ddThh:mm:ss"),
+
+                }) ;
             }
             return Unauthorized();
+        }
+
+
+        //[HttpGet]
+        //[Route("User")]
+        //public IActionResult User()
+        //{
+        //    var authSiginKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+        //    var token = new JwtSecurityToken(
+        //        issuer: _configuration["JWT:ValidIssuer"],
+        //        audience: _configuration["JWT:ValidAudience"],
+        //        expires: DateTime.Now.AddDays(1),
+        //        signingCredentials: new SigningCredentials(authSiginKey, SecurityAlgorithms.HmacSha256)
+        //        );
+        //    Guid userId = Guid.Parse(token.Issuer);
+
+        //    var user = userManager.FindByIdAsync(userId.ToString());
+
+
+
+        //    return Ok(user);
+        //}
+
+        [HttpGet]
+        [Route("GetUser")]
+        public ActionResult GetUser()
+        {
+
+            var user = userManager.Users.Where(u => u.Email == User.Identity.Name);
+
+
+
+            return Ok(user);
         }
 
     }

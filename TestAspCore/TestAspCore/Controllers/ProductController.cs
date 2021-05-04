@@ -33,7 +33,18 @@ namespace TestAspCore.Controllers
         [HttpGet]
         public async Task<IEnumerable<Product>> GetList()
         {
-            return await _storeRepository.Get();
+            var products = await _storeRepository.Get();
+            return products.Select(x => new Product()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Price = x.Price,
+                InStock = x.InStock,
+                Description = x.Description,
+                CategoryId = x.CategoryId,
+                ImageName = x.ImageName,
+                ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageName)
+            });
         }
 
         // GET: ProductController/Details/5

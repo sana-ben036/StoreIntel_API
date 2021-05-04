@@ -11,7 +11,7 @@ using TestAspCore.Authentication;
 
 namespace TestAspCore.Controllers
 {
-    //[Authorize(Roles = UserRoles.Admin)]
+   // [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

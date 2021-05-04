@@ -33,13 +33,12 @@ namespace TestAspCore.Controllers
            var categories = await _storeRepository.Get();
             return categories.Select(x => new Category()
             {
+                Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
                 ImageName = x.ImageName,
                 ImageSrc = String.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName)
             });
-            
-            
         }
 
         // GET: CategoryController/Details/5

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HA8Ck4Tq49ZpFdLSywAyTiqZ2t7Nf5tptRvUdg0xsPCpgNo70WR7CASQTHqFOoi7teWMNOKx1wN46/D1mH8yuw==",
+  "dgSpecHash": "aoC654RY8EwB8nP2sGHS8y1DlaG7tSkJ8pegPTNYiiQAT5t0ZW91LuWOc6Atke2a8KNrjwKzEUE4VxxA/LB3MA==",
   "success": true,
   "projectFilePath": "C:\\Users\\youcode\\source\\repos\\sana-ben036\\StoreIntel_API\\TestAspCore\\TestAspCore\\TestAspCore.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,7 @@
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.2.0\\microsoft.aspnetcore.identity.2.2.0.nupkg.sha512",
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\5.0.2\\microsoft.aspnetcore.identity.entityframeworkcore.5.0.2.nupkg.sha512",
+    "C:\\Users\\youcode\\.nuget\\packages\\microsoft.aspnetcore.session\\2.2.0\\microsoft.aspnetcore.session.2.2.0.nupkg.sha512",
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\youcode\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

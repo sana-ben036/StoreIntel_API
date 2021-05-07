@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,11 +42,16 @@ namespace TestAspCore
             
 
             // Repository
-            services.AddScoped<IStoreRepository<Product>, ProductRepository>();
-            services.AddScoped<IStoreRepository<Category>, CategoryRepository>();
-            services.AddScoped<IStoreRepository<Image>, ImageRepository>();
-            services.AddScoped<IStoreRepository<Order>, OrderRepository>();
+            services.AddTransient<IStoreRepository<Product>, ProductRepository>();
+            services.AddTransient<IStoreRepository<Category>, CategoryRepository>();
+            services.AddTransient<IStoreRepository<Image>, ImageRepository>();
+            services.AddTransient<IStoreRepository<Order>, OrderRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
             //services.AddScoped<IStoreRepository<OrderProducts>, OrderProductsRepository>();
+
+            services.AddMemoryCache();
+            services.AddSession();
 
             //For Entity Framework
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
@@ -81,7 +87,7 @@ namespace TestAspCore
             });
 
             // Cors (solve problem to run two apps from different port)
-            services.AddCors();
+              services.AddCors();
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -115,7 +121,10 @@ namespace TestAspCore
                 RequestPath = "/Images"
             });
 
-            
+            app.UseSession();
+
+
+
 
             //Authentication comes before Authorization.
             app.UseAuthentication();

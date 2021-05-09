@@ -46,12 +46,10 @@ namespace TestAspCore
             services.AddTransient<IStoreRepository<Category>, CategoryRepository>();
             services.AddTransient<IStoreRepository<Image>, ImageRepository>();
             services.AddTransient<IStoreRepository<Order>, OrderRepository>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(sp => ShoppingCart.GetCart(sp));
+           
             //services.AddScoped<IStoreRepository<OrderProducts>, OrderProductsRepository>();
 
-            services.AddMemoryCache();
-            services.AddSession();
+            
 
             //For Entity Framework
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
@@ -121,7 +119,6 @@ namespace TestAspCore
                 RequestPath = "/Images"
             });
 
-            app.UseSession();
 
 
 

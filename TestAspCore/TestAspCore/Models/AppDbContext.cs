@@ -19,7 +19,6 @@ namespace TestAspCore.Authentication
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderLines { get; set; }
-        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
 
 
